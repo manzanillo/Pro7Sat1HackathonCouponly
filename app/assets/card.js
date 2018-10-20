@@ -64,7 +64,11 @@ class CardComponent extends Component {
                           {c.title}
                         </Text>
                         <Image
-                          style={{ width: 50, height: 50 }}
+                          style={{
+                            width: 80,
+                            height: 50,
+                            resizeMode: "contain"
+                          }}
                           source={{
                             uri: c.logo
                           }}

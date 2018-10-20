@@ -57,7 +57,8 @@ class couponScreen extends Component {
         value: "10,00€",
         description: "Ein Test Coupon",
         code: "123345456567678",
-        logo: "../../src/building.png",
+        logo:
+          "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Logo_REWE.svg/250px-Logo_REWE.svg.png",
         backgroundColor: "yellow",
         time: "2018-10-20T23:00:16.347Z"
       }
