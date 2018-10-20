@@ -3,10 +3,9 @@ import React, { Component } from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import { Card, ListItem, Button, Icon } from "react-native-elements";
 import Barcode from "react-native-barcode-builder";
-import { material } from "react-native-typography";
+import { material, systemWeights } from "react-native-typography";
 import CountDown from "react-native-countdown-component";
 import CardFlip from "react-native-card-flip";
-import { systemWeights } from "react-native-typography";
 
 class CardComponent extends Component {
   constructor(props) {
@@ -20,11 +19,10 @@ class CardComponent extends Component {
     console.log(this.state);
     const { coupon } = this.state;
     return (
-      <View style={{ flex: 1 }}>
+      <View>
         <Card
           containerStyle={{
             padding: 0,
-
             borderWidth: 0
           }}
         >
@@ -41,6 +39,7 @@ class CardComponent extends Component {
                 <CardFlip
                   style={styles.cardContainer}
                   ref={card => (this.card = card)}
+                  flipDirection={"x"}
                 >
                   <TouchableOpacity
                     style={[
@@ -53,8 +52,7 @@ class CardComponent extends Component {
                       style={{
                         flexDirection: "row",
                         justifyContent: "space-between",
-                        alignItems: "center",
-                        marginBottom: 25
+                        alignItems: "center"
                       }}
                     >
                       <Text style={[material.headline, { width: 200 }]}>
@@ -123,7 +121,7 @@ export default CardComponent;
 const styles = StyleSheet.create({
   cardContainer: {
     width: 330,
-    height: 200,
+    height: 180,
     borderColor: "red",
     borderWidth: 0,
     borderColor: "#d6d7da",
@@ -131,7 +129,7 @@ const styles = StyleSheet.create({
   },
   card: {
     width: 330,
-    height: 200,
+    height: 180,
     borderColor: "red",
     borderBottomColor: "transparent"
   }

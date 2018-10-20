@@ -13,20 +13,15 @@ import { Router, Scene, Tabs, Stack, Overlay } from "react-native-router-flux";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import couponScreen from "./stacks/couponScreen";
 import mapScreen from "./stacks/mapScreen";
-import profilScreen from "./stacks/profilScreen";
+import ProfileScreen from "./stacks/profilScreen";
 import Colors from "./assets/style/color";
-import NfcManager, {Ndef, ByteParser} from 'react-native-nfc-manager'
+import NfcManager, { Ndef, ByteParser } from "react-native-nfc-manager";
 
-console.log(NfcManager)
-
-
+console.log(NfcManager);
 
 function buildTextPayload(valueToWrite) {
-    return Ndef.encodeMessage([
-        Ndef.textRecord(valueToWrite),
-    ]);
+  return Ndef.encodeMessage([Ndef.textRecord(valueToWrite)]);
 }
-
 
 const TabIcon = ({ focused, title }) => {
   if (title === "Coupons") {
@@ -58,143 +53,131 @@ const TabIcon = ({ focused, title }) => {
 
 type Props = {};
 
-
-
-
 export default class App extends Component<Props> {
   constructor(props) {
-      super(props);
-      this.state = {
-          supported: true,
-          enabled: false,
-          isWriting: false,
-          urlToWrite: 'https://www.google.com',
-          parsedText: null,
-          tag: {},
-      }
+    super(props);
+    this.state = {
+      supported: true,
+      enabled: false,
+      isWriting: false,
+      urlToWrite: "https://www.google.com",
+      parsedText: null,
+      tag: {}
+    };
   }
 
   componentDidMount() {
-      NfcManager.isEnabled()
-          .then(supported => {
-              this.setState({ supported });
-              if (supported) {
-                  this._startNfc();
-              }
-          })
-          .catch(err => {
-              console.log(err)
-              console.log("no nfc")
-            }
-          )
+    NfcManager.isEnabled()
+      .then(supported => {
+        this.setState({ supported });
+        if (supported) {
+          this._startNfc();
+        }
+      })
+      .catch(err => {
+        console.log(err);
+        console.log("no nfc");
+      });
   }
 
   _startNfc() {
-          if (Platform.OS === 'android') {
-              NfcManager.getLaunchTagEvent()
-                  .then(tag => {
-                      console.log('launch tag', tag);
-                      this._startDetection();
-                      if (tag) {
-                          this.setState({ tag });
-                      }
-                  })
-                  .catch(err => {
-                      console.log(err);
-                  })
-              NfcManager.isEnabled()
-                  .then(enabled => {
-                      this.setState({ enabled });
-                  })
-                  .catch(err => {
-                      console.log(err);
-                  })
-              NfcManager.onStateChanged(
-                  event => {
-                      if (event.state === 'on') {
-                          this.setState({enabled: true});
-                      } else if (event.state === 'off') {
-                          this.setState({enabled: false});
-                      } else if (event.state === 'turning_on') {
-                          // do whatever you want
-                      } else if (event.state === 'turning_off') {
-                          // do whatever you want
-                      }
-                  }
-              )
-                  .then(sub => {
-                      this._stateChangedSubscription = sub;
-                      // remember to call this._stateChangedSubscription.remove()
-                      // when you don't want to listen to this anymore
-                  })
-                  .catch(err => {
-                      console.warn(err);
-                  })
+    if (Platform.OS === "android") {
+      NfcManager.getLaunchTagEvent()
+        .then(tag => {
+          console.log("launch tag", tag);
+          this._startDetection();
+          if (tag) {
+            this.setState({ tag });
           }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+      NfcManager.isEnabled()
+        .then(enabled => {
+          this.setState({ enabled });
+        })
+        .catch(err => {
+          console.log(err);
+        });
+      NfcManager.onStateChanged(event => {
+        if (event.state === "on") {
+          this.setState({ enabled: true });
+        } else if (event.state === "off") {
+          this.setState({ enabled: false });
+        } else if (event.state === "turning_on") {
+          // do whatever you want
+        } else if (event.state === "turning_off") {
+          // do whatever you want
+        }
+      })
+        .then(sub => {
+          this._stateChangedSubscription = sub;
+          // remember to call this._stateChangedSubscription.remove()
+          // when you don't want to listen to this anymore
+        })
+        .catch(err => {
+          console.warn(err);
+        });
+    }
+  }
+
+  _onTagDiscovered = tag => {
+    console.log("Tag Discovered", tag);
+    this.setState({ tag });
+
+    let text = this._parseText(tag);
+    this.setState({ parsedText: text });
+  };
+
+  _startDetection = () => {
+    NfcManager.registerTagEvent(this._onTagDiscovered)
+      .then(result => {
+        console.log("registerTagEvent OK", result);
+      })
+      .catch(error => {
+        console.warn("registerTagEvent fail", error);
+      });
+  };
+
+  _stopDetection = () => {
+    NfcManager.unregisterTagEvent()
+      .then(result => {
+        console.log("unregisterTagEvent OK", result);
+      })
+      .catch(error => {
+        console.warn("unregisterTagEvent fail", error);
+      });
+  };
+
+  _clearMessages = () => {
+    this.setState({ tag: null });
+  };
+
+  _goToNfcSetting = () => {
+    if (Platform.OS === "android") {
+      NfcManager.goToNfcSetting()
+        .then(result => {
+          console.log("goToNfcSetting OK", result);
+        })
+        .catch(error => {
+          console.warn("goToNfcSetting fail", error);
+        });
+    }
+  };
+
+  _parseText = tag => {
+    try {
+      if (Ndef.isType(tag.ndefMessage[0], Ndef.TNF_WELL_KNOWN, Ndef.RTD_TEXT)) {
+        const text = Ndef.text.decodePayload(tag.ndefMessage[0].payload);
+        console.log(text);
+        return text;
       }
-
-
-      _onTagDiscovered = tag => {
-        console.log('Tag Discovered', tag);
-        this.setState({ tag });
-
-        let text = this._parseText(tag);
-        this.setState({parsedText: text});
+    } catch (e) {
+      console.log(e);
     }
-
-    _startDetection = () => {
-        NfcManager.registerTagEvent(this._onTagDiscovered)
-            .then(result => {
-                console.log('registerTagEvent OK', result)
-            })
-            .catch(error => {
-                console.warn('registerTagEvent fail', error)
-            })
-    }
-
-    _stopDetection = () => {
-        NfcManager.unregisterTagEvent()
-            .then(result => {
-                console.log('unregisterTagEvent OK', result)
-            })
-            .catch(error => {
-                console.warn('unregisterTagEvent fail', error)
-            })
-    }
-
-    _clearMessages = () => {
-        this.setState({tag: null});
-    }
-
-    _goToNfcSetting = () => {
-        if (Platform.OS === 'android') {
-            NfcManager.goToNfcSetting()
-                .then(result => {
-                    console.log('goToNfcSetting OK', result)
-                })
-                .catch(error => {
-                    console.warn('goToNfcSetting fail', error)
-                })
-        }
-    }
-
-    _parseText = (tag) => {
-        try {
-            if (Ndef.isType(tag.ndefMessage[0], Ndef.TNF_WELL_KNOWN, Ndef.RTD_TEXT)) {
-                const text = Ndef.text.decodePayload(tag.ndefMessage[0].payload);
-                console.log(text);
-                return text;
-            }
-        } catch (e) {
-            console.log(e);
-        }
-        return null;
-    }
-
-
-
-
-
+    return null;
+  };
 
   render() {
     return (
@@ -217,7 +200,7 @@ export default class App extends Component<Props> {
               <Scene key="Maps" component={mapScreen} />
             </Stack>
             <Stack key="profile" title="Profile" icon={TabIcon}>
-              <Scene key="profiles" component={profilScreen} />
+              <Scene key="profiles" component={ProfileScreen} />
             </Stack>
           </Tabs>
         </Overlay>

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Platform, StyleSheet, Text, View, ScrollView } from "react-native";
 import CardComponent from "../../assets/card";
+import { material, systemWeights } from "react-native-typography";
 
 class couponScreen extends Component {
   constructor(props) {
@@ -20,8 +21,25 @@ class couponScreen extends Component {
       }
     ];
     return (
-      <ScrollView style={{ backgroundColor: "#5F627D", flex: 1 }}>
+      <ScrollView
+        style={{
+          backgroundColor: "#5F627D",
+          flexDirection: "column",
+          flex: 1
+        }}
+      >
         <CardComponent coupon={coupon} />
+        <ScrollView style={{ margin: 15, flex: 1 }}>
+          <Text
+            style={{
+              ...material.display1,
+              ...systemWeights.light,
+              color: Colors.white
+            }}
+          >
+            History
+          </Text>
+        </ScrollView>
       </ScrollView>
     );
   }
