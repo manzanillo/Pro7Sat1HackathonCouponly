@@ -48,21 +48,32 @@ const history = [
 class couponScreen extends Component {
   constructor(props) {
     super(props);
+    console.log("hier bin ich");
+    console.log(props);
     this.state = {};
   }
   render() {
     const coupon = [
       {
-        title: "Rabatt für den nächsten Einkauf",
-        value: "10,00€",
-        description: "Ein Test Coupon",
-        code: "123345456567678",
-        logo:
-          "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Logo_REWE.svg/250px-Logo_REWE.svg.png",
-        backgroundColor: "yellow",
-        time: "2018-10-20T23:00:16.347Z"
+        value: [{ type: "percent", value: -5, signe: "%" }],
+        gradient: ["#0A122A", "#610B4B"],
+        _id: "5bcba21dba372c108b8adf39",
+        title: "Tomaten Discount",
+        company: "Aldi Süd",
+        description: "Heute die Toamten für weniger geld als morgen",
+        code: "69898425848591512447911349569250504064472511731377",
+        logo: "http://localhost/logo3.png",
+        __v: 0,
+        ttl: 0
       }
     ];
+    let Cards;
+    if (this.props.coupon) {
+      Cards = <CardComponent coupon={this.props.coupon} />;
+    } else {
+      Cards = <Text />;
+    }
+
     return (
       <ScrollView
         style={{
@@ -71,7 +82,7 @@ class couponScreen extends Component {
           flex: 1
         }}
       >
-        <CardComponent coupon={coupon} />
+        {Cards}
         <ScrollView>
           <Text
             style={{

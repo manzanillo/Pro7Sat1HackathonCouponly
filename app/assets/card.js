@@ -27,8 +27,8 @@ class CardComponent extends Component {
             borderWidth: 0
           }}
         >
-          {coupon.map((c, i) => {
-            const time = (new Date(c.time) - new Date()) / 1000;
+          {this.props.coupon.map((c, i) => {
+            const time = (new Date(c.ttl) - new Date()) / 1000;
             console.log(time);
             return (
               <View
@@ -100,7 +100,7 @@ class CardComponent extends Component {
                         <Text
                           style={[material.headline, { color: "whitesmoke" }]}
                         >
-                          {c.value}
+                          {c.value[0].value} {c.value[0].signe}
                         </Text>
                       </View>
                     </LinearGradient>
