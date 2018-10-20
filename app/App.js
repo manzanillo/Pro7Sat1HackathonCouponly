@@ -50,14 +50,16 @@ export default class App extends Component<Props> {
     return (
       <Router>
         <Overlay>
-          <Tabs tabBarStyle={{ backgroundColor: Colors.lightGrey }}
-                navigationBarStyle={{
-                         backgroundColor: Colors.lightBlack,
-                         color: Colors.white
-                       }}
-                       inactiveTintColor={Colors.darkBlack}
-                       activeTintColor={Colors.white}
-                       navBarButtonColor={Colors.white}>
+          <Tabs
+            tabBarStyle={{ backgroundColor: Colors.lightGrey }}
+            navigationBarStyle={{
+              backgroundColor: Colors.main,
+              color: Colors.white
+            }}
+            inactiveTintColor={Colors.darkBlack}
+            activeTintColor={Colors.white}
+            navBarButtonColor={Colors.white}
+          >
             <Stack key="cupon" title="Coupons" icon={TabIcon}>
               <Scene key="coupons" component={couponScreen} />
             </Stack>
