@@ -191,7 +191,7 @@ export default class App extends Component<Props> {
             }}
             inactiveTintColor={Colors.white}
             activeTintColor={Colors.main}
-            navBarButtonColor={Colors.white}
+            navBarButtonCxolor={Colors.white}
           >
             <Stack key="cupon" title="Coupons" icon={TabIcon}>
               <Scene key="coupons" component={couponScreen} />

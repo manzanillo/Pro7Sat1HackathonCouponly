@@ -1,7 +1,33 @@
 import React, { Component } from "react";
 import { Platform, StyleSheet, Text, View, ScrollView } from "react-native";
+import { Card, ListItem, Button, Icon, List } from "react-native-elements";
 import CardComponent from "../../assets/card";
 import { material, systemWeights } from "react-native-typography";
+
+const history = [
+  {
+    logo: "1",
+    title: "Comfort Hotel am Medienpark",
+    category: "Restaurant Coupon",
+    value: "10€",
+    date: "17.10.2018"
+  },
+  {
+    logo: "2",
+    title: "Freimann E.V. München",
+    category: "Bar Coupon"
+  },
+  {
+    logo: "sdfs",
+    title: "Hofstatt",
+    category: "Shopping Coupon"
+  },
+  {
+    logo: "sdfs",
+    title: "Guten Tag Apotheke",
+    category: "Pharmacy Coupon"
+  }
+];
 
 class couponScreen extends Component {
   constructor(props) {
@@ -29,16 +55,38 @@ class couponScreen extends Component {
         }}
       >
         <CardComponent coupon={coupon} />
-        <ScrollView style={{ margin: 15, flex: 1 }}>
+        <ScrollView>
           <Text
             style={{
               ...material.display1,
               ...systemWeights.light,
-              color: Colors.white
+              color: Colors.white,
+              marginTop: 20,
+              marginLeft: 15
             }}
           >
             History
           </Text>
+          <List stlye={{ marginTop: 20 }}>
+            {history.map(history => (
+              <ListItem
+                underlayColor={Colors.lightBlack}
+                containerStyle={{
+                  backgroundColor: Colors.bg,
+                  marginTop: 0,
+                  borderTopWidth: 0,
+                  height: 70,
+                  borderBottomWidth: 0
+                }}
+                titleStyle={{ color: Colors.white }}
+                key={history.title}
+                title={history.title}
+                subtitle={history.category}
+                rightTitle={history.value}
+                rightSubtitle="tes"
+              />
+            ))}
+          </List>
         </ScrollView>
       </ScrollView>
     );
@@ -46,3 +94,4 @@ class couponScreen extends Component {
 }
 
 export default couponScreen;
+// <Image source={require("/react-native/img/favicon.png")} />;
