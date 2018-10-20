@@ -11,7 +11,9 @@ class couponScreen extends Component {
     }
     render() {
         return (
-            
+          <View>
+            <Text>Hi            </Text>
+          </View>
         );
     }
 }

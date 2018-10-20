@@ -8,7 +8,9 @@ class profilScreen extends Component {
     }
     render() {
         return (
-            
+          <View>
+            <Text>Hi</Text>
+          </View>
         );
     }
 }
