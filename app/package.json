@@ -13,6 +13,7 @@
     "react-native-card-flip": "^1.0.4",
     "react-native-countdown-component": "^1.8.2",
     "react-native-elements": "^0.19.1",
+    "react-native-linear-gradient": "^2.4.2",
     "react-native-maps": "^0.22.0",
     "react-native-nfc-manager": "^0.7.0",
     "react-native-router-flux": "^4.0.5",

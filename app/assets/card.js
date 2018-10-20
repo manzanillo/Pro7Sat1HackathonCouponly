@@ -6,6 +6,8 @@ import Barcode from "react-native-barcode-builder";
 import { material, systemWeights } from "react-native-typography";
 import CountDown from "react-native-countdown-component";
 import CardFlip from "react-native-card-flip";
+import LinearGradient from 'react-native-linear-gradient';
+
 
 class CardComponent extends Component {
   constructor(props) {
@@ -41,13 +43,19 @@ class CardComponent extends Component {
                   ref={card => (this.card = card)}
                   flipDirection={"x"}
                 >
+
                   <TouchableOpacity
                     style={[
                       styles.card,
-                      { backgroundColor: c.backgroundColor, padding: 15 }
+                      { backgroundColor: 'transparent' }
                     ]}
                     onPress={() => this.card.flip()}
                   >
+                  <LinearGradient
+                    start={{x: 0, y: 0}}
+                    end={{x: 1, y: 0}}
+                    colors={["#00FA92", "#88FA4E"]}
+                    style={styles.linearGradient}>
                     <View
                       style={{
                         flexDirection: "row",
@@ -77,21 +85,28 @@ class CardComponent extends Component {
                         onFinish={() => alert("finished")}
                         size={20}
                         textStyle={{ color: "black" }} //default black
-                        digitBgColor={c.backgroundColor}
+                        digitBgColor={'transparent'}
                         timeToShow={["H", "M", "S"]}
                         size={22}
                       />
                       <Text style={material.headline}>{c.value}</Text>
                     </View>
+                    </LinearGradient>
+
                   </TouchableOpacity>
                   <TouchableOpacity
                     style={styles.card}
                     onPress={() => this.card.flip()}
                   >
+                  <LinearGradient
+                    start={{x: 0, y: 0}}
+                    end={{x: 1, y: 0}}
+                    colors={["#00FA92", "#88FA4E"]}
+                    style={styles.linearGradient}>
                     <View
                       style={{
                         flex: 1,
-                        backgroundColor: c.backgroundColor,
+                        backgroundColor: 'transparent',
                         alignItems: "center",
                         justifyContent: "center"
                       }}
@@ -101,10 +116,11 @@ class CardComponent extends Component {
                         format="CODE128"
                         width={1.5}
                         height={60}
-                        background={c.backgroundColor}
+                        background={'transparent'}
                       />
                       <Text>{c.code}</Text>
                     </View>
+                    </LinearGradient>
                   </TouchableOpacity>
                 </CardFlip>
               </View>
@@ -132,5 +148,11 @@ const styles = StyleSheet.create({
     height: 180,
     borderColor: "red",
     borderBottomColor: "transparent"
+  },
+  linearGradient: {
+      flex: 1,
+      paddingLeft: 15,
+      paddingRight: 15,
+      borderRadius: 5
   }
 });
