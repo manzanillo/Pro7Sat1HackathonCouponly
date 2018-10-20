@@ -23,23 +23,25 @@ const history = [
     logo: 1,
     title: "Comfort Hotel am Medienpark",
     category: "Restaurant Coupon",
-    value: "10€",
-    date: "17.10.2018"
+    value: "10€"
   },
   {
     logo: 3,
     title: "Freimann E.V. München",
-    category: "Bar Coupon"
+    category: "Bar Coupon",
+    value: "3%"
   },
   {
     logo: 4,
     title: "Hofstatt",
-    category: "Shopping Coupon"
+    category: "Shopping Coupon",
+    value: "10%"
   },
   {
     logo: 2,
     title: "Guten Tag Apotheke",
-    category: "Pharmacy Coupon"
+    category: "Pharmacy Coupon",
+    value: "3€"
   }
 ];
 
@@ -90,17 +92,20 @@ class couponScreen extends Component {
                   marginTop: 0,
                   borderTopWidth: 0,
                   height: 70,
-                  borderBottomWidth: 0
+                  borderBottomWidth: 0,
+                  paddingLeft: 7,
+                  paddingTop: 10
                 }}
                 titleStyle={{ color: Colors.white }}
                 key={history.title}
-                title={history.title}image
+                title={history.title}
+                image
                 subtitle={history.category}
                 rightTitle={history.value}
                 hideChevron
                 avatar={
                   <Image
-                    style={{ width: 35, height: 35 }}
+                    style={{ width: 35, height: 35, paddingRight: 5 }}
                     source={Images[history.logo - 1]}
                   />
                 }
