@@ -21,7 +21,7 @@ const TabIcon = ({ focused, title }) => {
     return (
       <Icon
         name="ticket-percent"
-        color={focused ? Colors.white : Colors.darkBlack}
+        color={focused ? Colors.main : Colors.white}
         size={25}
       />
     );
@@ -29,7 +29,7 @@ const TabIcon = ({ focused, title }) => {
     return (
       <Icon
         name="map-legend"
-        color={focused ? Colors.white : Colors.darkBlack}
+        color={focused ? Colors.main : Colors.white}
         size={25}
       />
     );
@@ -37,7 +37,7 @@ const TabIcon = ({ focused, title }) => {
     return (
       <Icon
         name="account"
-        color={focused ? Colors.white : Colors.darkBlack}
+        color={focused ? Colors.main : Colors.white}
         size={25}
       />
     );
@@ -51,13 +51,13 @@ export default class App extends Component<Props> {
       <Router>
         <Overlay>
           <Tabs
-            tabBarStyle={{ backgroundColor: Colors.lightGrey }}
+            tabBarStyle={{ backgroundColor: Colors.lightBlack }}
             navigationBarStyle={{
-              backgroundColor: Colors.main,
+              backgroundColor: Colors.lightBlack,
               color: Colors.white
             }}
-            inactiveTintColor={Colors.darkBlack}
-            activeTintColor={Colors.white}
+            inactiveTintColor={Colors.white}
+            activeTintColor={Colors.main}
             navBarButtonColor={Colors.white}
           >
             <Stack key="cupon" title="Coupons" icon={TabIcon}>
