@@ -49,7 +49,7 @@ class CardComponent extends Component {
                     <LinearGradient
                       start={{ x: 0, y: 0 }}
                       end={{ x: 1, y: 0 }}
-                      colors={["#00FA92", "#88FA4E"]}
+                      colors={["#008CA2", "#61B238"]}
                       style={styles.linearGradient}
                     >
                       <View
@@ -60,7 +60,12 @@ class CardComponent extends Component {
                           paddingTop: 10
                         }}
                       >
-                        <Text style={[material.headline, { width: 200 }]}>
+                        <Text
+                          style={[
+                            material.headline,
+                            { width: 200, color: "whitesmoke" }
+                          ]}
+                        >
                           {c.title}
                         </Text>
                         <Image
@@ -87,10 +92,16 @@ class CardComponent extends Component {
                           size={20}
                           textStyle={{ color: "black" }} //default black
                           digitBgColor={"transparent"}
+                          digitTxtColor={"whitesmoke"}
+                          timeTxtColor={"whitesmoke"}
                           timeToShow={["H", "M", "S"]}
                           size={22}
                         />
-                        <Text style={material.headline}>{c.value}</Text>
+                        <Text
+                          style={[material.headline, { color: "whitesmoke" }]}
+                        >
+                          {c.value}
+                        </Text>
                       </View>
                     </LinearGradient>
                   </TouchableOpacity>
@@ -101,7 +112,7 @@ class CardComponent extends Component {
                     <LinearGradient
                       start={{ x: 0, y: 0 }}
                       end={{ x: 1, y: 0 }}
-                      colors={["#00FA92", "#88FA4E"]}
+                      colors={["#008CA2", "#61B238"]}
                       style={styles.linearGradient}
                     >
                       <View
