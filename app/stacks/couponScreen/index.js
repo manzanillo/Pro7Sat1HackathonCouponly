@@ -1,5 +1,8 @@
 import React, { Component } from "react";
-import { Platform, StyleSheet, Text, View } from "react-native";
+import { Platform, StyleSheet, Text, View, ScrollView } from "react-native";
+import CardComponent from "../../assets/card";
+
+
 
 class couponScreen extends Component {
   constructor(props) {
@@ -7,10 +10,20 @@ class couponScreen extends Component {
     this.state = {};
   }
   render() {
+    const coupon = [
+      {
+        title: "10€ Coupon",
+        value: "10,00",
+        description: "Ein Test Coupon",
+        code: "123345456567678",
+        logo: "https://facebook.github.io/react-native/docs/assets/favicon.png",
+        backgroundColor: "yellow"
+      }
+    ];
     return (
-      <View style={{ backgroundColor: "#5F627D", flex: 1 }}>
-        <Text>Hi </Text>
-      </View>
+      <ScrollView style={{ backgroundColor: "#5F627D", flex: 1 }}>
+        <CardComponent coupon={coupon} />
+      </ScrollView>
     );
   }
 }
