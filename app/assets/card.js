@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import { Card, ListItem, Button, Icon } from "react-native-elements";
 import Barcode from "react-native-barcode-builder";
 import { material } from "react-native-typography";
 import CountDown from "react-native-countdown-component";
+import CardFlip from "react-native-card-flip";
+import { systemWeights } from "react-native-typography";
 
 class CardComponent extends Component {
   constructor(props) {
@@ -19,57 +21,94 @@ class CardComponent extends Component {
     const { coupon } = this.state;
     return (
       <View style={{ flex: 1 }}>
-        <Card containerStyle={{ padding: 0 }}>
+        <Card
+          containerStyle={{
+            padding: 0,
+
+            borderWidth: 0
+          }}
+        >
           {coupon.map((c, i) => {
+            const time = (new Date(c.time) - new Date()) / 1000;
+            console.log(time);
             return (
               <View
                 key={i}
-                style={{ padding: 25, backgroundColor: c.backgroundColor }}
+                style={{
+                  backgroundColor: "#5F627D"
+                }}
               >
-                <View
-                  style={{
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    marginBottom: 35
-                  }}
+                <CardFlip
+                  style={styles.cardContainer}
+                  ref={card => (this.card = card)}
                 >
-                  <Text style={material.display1}>{c.title}</Text>
-                  <Image
-                    style={{ width: 50, height: 50 }}
-                    source={{
-                      uri: c.logo
-                    }}
-                  />
-                </View>
-                <View
-                  style={{
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                    alignItems: "center"
-                  }}
-                >
-                  <CountDown
-                    until={1000}
-                    onFinish={() => alert("finished")}
-                    onPress={() => alert("hello")}
-                    size={20}
-                    textStyle={{ color: "black" }} //default black
-                    digitBgColor={c.backgroundColor}
-                    timeToShow={["H", "M", "S"]}
-                  />
-
-                  <Text>{c.value}€</Text>
-                </View>
-                <View>
-                  <Barcode
-                    value={c.code}
-                    format="CODE128"
-                    width={1.5}
-                    height={60}
-                    background={c.backgroundColor}
-                  />
-                </View>
+                  <TouchableOpacity
+                    style={[
+                      styles.card,
+                      { backgroundColor: c.backgroundColor, padding: 15 }
+                    ]}
+                    onPress={() => this.card.flip()}
+                  >
+                    <View
+                      style={{
+                        flexDirection: "row",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        marginBottom: 25
+                      }}
+                    >
+                      <Text style={[material.headline, { width: 200 }]}>
+                        {c.title}
+                      </Text>
+                      <Image
+                        style={{ width: 50, height: 50 }}
+                        source={{
+                          uri: c.logo
+                        }}
+                      />
+                    </View>
+                    <View
+                      style={{
+                        flexDirection: "row",
+                        justifyContent: "space-between",
+                        alignItems: "center"
+                      }}
+                    >
+                      <CountDown
+                        until={time}
+                        onFinish={() => alert("finished")}
+                        size={20}
+                        textStyle={{ color: "black" }} //default black
+                        digitBgColor={c.backgroundColor}
+                        timeToShow={["H", "M", "S"]}
+                        size={22}
+                      />
+                      <Text style={material.headline}>{c.value}</Text>
+                    </View>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={styles.card}
+                    onPress={() => this.card.flip()}
+                  >
+                    <View
+                      style={{
+                        flex: 1,
+                        backgroundColor: c.backgroundColor,
+                        alignItems: "center",
+                        justifyContent: "center"
+                      }}
+                    >
+                      <Barcode
+                        value={c.code}
+                        format="CODE128"
+                        width={1.5}
+                        height={60}
+                        background={c.backgroundColor}
+                      />
+                      <Text>{c.code}</Text>
+                    </View>
+                  </TouchableOpacity>
+                </CardFlip>
               </View>
             );
           })}
@@ -80,8 +119,20 @@ class CardComponent extends Component {
 }
 
 export default CardComponent;
-// <Image
-//                   style={styles.image}
-//                   resizeMode="cover"
-//                   source={{ uri: u.avatar }}
-//                 />
+
+const styles = StyleSheet.create({
+  cardContainer: {
+    width: 330,
+    height: 200,
+    borderColor: "red",
+    borderWidth: 0,
+    borderColor: "#d6d7da",
+    borderBottomColor: "transparent"
+  },
+  card: {
+    width: 330,
+    height: 200,
+    borderColor: "red",
+    borderBottomColor: "transparent"
+  }
+});
