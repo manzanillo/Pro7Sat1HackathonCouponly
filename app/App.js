@@ -140,6 +140,9 @@ export default class App extends Component<Props> {
 
         let text = this._parseText(tag);
         this.setState({parsedText: text});
+
+        //send tag to server
+
     }
 
     _startDetection = () => {
