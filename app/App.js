@@ -16,16 +16,7 @@ import mapScreen from "./stacks/mapScreen";
 import profilScreen from "./stacks/profilScreen";
 import Colors from "./assets/style/color";
 import NfcManager, {Ndef, ByteParser} from 'react-native-nfc-manager'
-
-console.log(NfcManager)
-
-
-
-function buildTextPayload(valueToWrite) {
-    return Ndef.encodeMessage([
-        Ndef.textRecord(valueToWrite),
-    ]);
-}
+import acquireCoupon from './api/url'
 
 
 const TabIcon = ({ focused, title }) => {
@@ -67,8 +58,6 @@ export default class App extends Component<Props> {
       this.state = {
           supported: true,
           enabled: false,
-          isWriting: false,
-          urlToWrite: 'https://www.google.com',
           parsedText: null,
           tag: {},
       }
@@ -140,9 +129,20 @@ export default class App extends Component<Props> {
 
         let text = this._parseText(tag);
         this.setState({parsedText: text});
+        console.log(text);
 
+        fetch('http://10.100.2.88:3000/coupon/validation?coupon=')
+          .then(response => response.json())
+          .then(data => console.log(data[0]))
+          .catch(err => {
+            console.log(err);
+          })
         //send tag to server
-
+  /*      acquireCoupon(text).then(coupon => {
+          console.log(coupon);
+        }).catch(err => {
+          console.log(err);
+        }); */
     }
 
     _startDetection = () => {
@@ -185,7 +185,6 @@ export default class App extends Component<Props> {
         try {
             if (Ndef.isType(tag.ndefMessage[0], Ndef.TNF_WELL_KNOWN, Ndef.RTD_TEXT)) {
                 const text = Ndef.text.decodePayload(tag.ndefMessage[0].payload);
-                console.log(text);
                 return text;
             }
         } catch (e) {
