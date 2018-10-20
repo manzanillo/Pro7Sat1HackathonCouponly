@@ -6,5 +6,6 @@ export default (Colors = {
   white: "#D0D4FF",
   main: "#00FA92",
   favorite: "orange",
-  green: "#88FA4E"
+  green: "#88FA4E",
+  bg: "#5F627D"
 });
