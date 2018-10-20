@@ -8,42 +8,51 @@
 
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View} from 'react-native';
+import { Actions } from "react-native-router-flux"
+import { Router, Scene, Tabs, Stack, Overlay } from "react-native-router-flux";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import couponScreen from "./stacks/couponScreen";
+import mapScreen from "./stacks/mapScreen";
+import profilScreen from "./stacks/profilScreen";
 
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
-  android:
-    'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
+
+const TabIcon = ({ focused, title }) => {
+  if (title === "Kaffee") {
+    return (
+      <Icon
+        name="coffee"
+        color={focused ? Colors.white : Colors.darkBlack}
+        size={25}
+      />
+    );
+  } else if (title === "Mehr") {
+    return (
+      <Icon
+        name="format-list-bulleted"
+        color={focused ? Colors.white : Colors.darkBlack}
+        size={25}
+      />
+    );
+  } else if (title === "Favoriten") {
+    return (
+      <Icon
+        name="star"
+        color={focused ? Colors.white : Colors.darkBlack}
+        size={25}
+      />
+    );
+  }
+};
 
 type Props = {};
 export default class App extends Component<Props> {
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to React Native!</Text>
-        <Text style={styles.instructions}>To get started, edit App.js</Text>
-        <Text style={styles.instructions}>{instructions}</Text>
-      </View>
+      <Router>
+        <Overlay>
+         
+        </Overlay>
+      </Router>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
