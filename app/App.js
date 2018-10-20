@@ -14,6 +14,7 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import couponScreen from "./stacks/couponScreen";
 import mapScreen from "./stacks/mapScreen";
 import profilScreen from "./stacks/profilScreen";
+import Colors from "./assets/style/color";
 
 const TabIcon = ({ focused, title }) => {
   if (title === "Coupons") {
