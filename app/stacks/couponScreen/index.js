@@ -1,29 +1,43 @@
 import React, { Component } from "react";
-import { Platform, StyleSheet, Text, View, ScrollView } from "react-native";
+import {
+  Platform,
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  Image
+} from "react-native";
 import { Card, ListItem, Button, Icon, List } from "react-native-elements";
 import CardComponent from "../../assets/card";
 import { material, systemWeights } from "react-native-typography";
 
+const Images = [
+  require("../../src/building.png"),
+  require("../../src/hospital.png"),
+  require("../../src/pint.png"),
+  require("../../src/store.png")
+];
+
 const history = [
   {
-    logo: "1",
+    logo: 1,
     title: "Comfort Hotel am Medienpark",
     category: "Restaurant Coupon",
     value: "10€",
     date: "17.10.2018"
   },
   {
-    logo: "2",
+    logo: 3,
     title: "Freimann E.V. München",
     category: "Bar Coupon"
   },
   {
-    logo: "sdfs",
+    logo: 4,
     title: "Hofstatt",
     category: "Shopping Coupon"
   },
   {
-    logo: "sdfs",
+    logo: 2,
     title: "Guten Tag Apotheke",
     category: "Pharmacy Coupon"
   }
@@ -41,7 +55,7 @@ class couponScreen extends Component {
         value: "10,00€",
         description: "Ein Test Coupon",
         code: "123345456567678",
-        logo: "https://facebook.github.io/react-native/docs/assets/favicon.png",
+        logo: "../../src/building.png",
         backgroundColor: "yellow",
         time: "2018-10-20T23:00:16.347Z"
       }
@@ -67,7 +81,7 @@ class couponScreen extends Component {
           >
             History
           </Text>
-          <List stlye={{ marginTop: 20 }}>
+          <List style={{ marginTop: 20 }}>
             {history.map(history => (
               <ListItem
                 underlayColor={Colors.lightBlack}
@@ -80,10 +94,16 @@ class couponScreen extends Component {
                 }}
                 titleStyle={{ color: Colors.white }}
                 key={history.title}
-                title={history.title}
+                title={history.title}image
                 subtitle={history.category}
                 rightTitle={history.value}
-                rightSubtitle="tes"
+                hideChevron
+                avatar={
+                  <Image
+                    style={{ width: 35, height: 35 }}
+                    source={Images[history.logo - 1]}
+                  />
+                }
               />
             ))}
           </List>
